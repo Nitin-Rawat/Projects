@@ -62,38 +62,51 @@ function Login() {
         w={500}
         h={400}
         display="flex"
-        flexDirection="column"
+        flexDirection="row"
         justifyContent="center"
+        style={{ backdropFilter: "blur(10px)" }} // Apply blur effect
       >
         <VStack spacing={15}>
           {/* //Username */}
           <FormControl isRequired>
-            <FormLabel fontSize={20}>Username</FormLabel>
+            <FormLabel fontSize={20} fontFamily={"Times New Roman"}>
+              Username
+            </FormLabel>
 
             <Input
               type="text"
               bg={"#201c3c" ? "true" : "false"}
               textColor={"#13BFC6"}
               placeholder="Enter Username"
+              borderRadius={20}
+              w={300}
+              h={10}
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
-            <FormHelperText >We'll never share your Username.</FormHelperText>
+            <FormHelperText textColor={"black"}>
+              We'll never share your Username.
+            </FormHelperText>
           </FormControl>
 
           {/* //password */}
           <FormControl isRequired>
-            <FormLabel fontSize={20}>Password</FormLabel>
+            <FormLabel fontSize={20} fontFamily={"Times New Roman"}>
+              Password
+            </FormLabel>
             <InputGroup>
               <Input
                 type={showpass ? "text" : "password"}
                 bg={"#201c3c" ? "true" : "false"}
                 textColor={"#13BFC6"}
                 placeholder="Enter password"
+                borderRadius={20}
+                w={300}
+                h={10}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <InputRightElement width="4.5rem">
+              <InputRightElement w={55}>
                 <IconButton
                   h="1.75rem"
                   size="sm"
@@ -102,12 +115,19 @@ function Login() {
                 />
               </InputRightElement>
             </InputGroup>
-            <FormHelperText>We'll never share your Password.</FormHelperText>
+            <FormHelperText textColor={"black"}>
+              We'll never share your Password.
+            </FormHelperText>
           </FormControl>
 
           {/* //Login Button */}
 
-          <Button onClick={handleLogIn} textColor={"#13BFC6"} bg={"#201c3c"}>
+          <Button
+            onClick={handleLogIn}
+            textColor={"#13BFC6"}
+            bg={"#201c3c"}
+            borderRadius={20}
+          >
             Login
           </Button>
         </VStack>
