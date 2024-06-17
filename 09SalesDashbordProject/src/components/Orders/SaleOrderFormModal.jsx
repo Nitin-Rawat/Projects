@@ -107,6 +107,7 @@ const SaleOrderFormModal = ({
                 xl: "repeat(5, 1fr)",
               }}
               gap={8}
+              w={{base:"50vw",md:"80vw"}}
             >
               <GridItem colSpan={1}>
                 <FormControl id="customer" isRequired>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   Box,
- 
   Tabs,
   TabList,
   TabPanels,
@@ -16,7 +15,6 @@ import {
   IconButton,
   Flex,
   useBreakpointValue,
-
 } from "@chakra-ui/react";
 import { EditIcon, AddIcon } from "@chakra-ui/icons";
 import SaleOrderFormModal from "./SaleOrderFormModal"; // Assuming this is your modal component
@@ -32,7 +30,7 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch("/Json/Data.json");
+        const response = await fetch("/Data/Data.json");
         const orders = await response.json();
 
         const active = orders.filter((order) => !order.completed);
@@ -58,7 +56,7 @@ const Orders = () => {
   const handleSubmit = (data, isEditMode) => {
     const newOrder = {
       id: isEditMode ? data.id : activeOrders.length + 1,
-      customer: `Customer ${data.customer}`,
+      customer: data.customer,
       price: data.items.reduce(
         (sum, item) => sum + item.price * item.quantity,
         0
@@ -158,36 +156,19 @@ const Orders = () => {
       maxWidth={{ base: "90vw", sm: "90vw", md: "90vw", lg: "90vw" }}
       paddingLeft={{ base: "sm", md: 10, lg: 20 }}
       paddingTop={58}
-      backgroundAttachment="fixed" 
+      backgroundAttachment="fixed"
       overflow="hidden"
     >
-      <Tabs isFitted variant="enclosed" 
-      colorScheme="green" isLazy>
+      <Tabs isFitted variant="enclosed" colorScheme="green" isLazy>
         <TabList
           spacing={{ base: 1, md: 20, lg: 40 }}
           size={{ base: "1vw", md: "md", lg: "lg" }}
           gap={{ base: "1vw", md: "md", lg: "lg" }}
         >
-          <Tab>Active </Tab>
+          <Tab>Active</Tab>
           <Tab>Completed</Tab>
-          <Tab>
-            <Tab
-            
-              border={"none"}
-              borderColor={"none"}
-              size={{ base: "1vw", md: "md", lg: "lg" }}
-              onClick={() => handleOpenModal()}
-              color={"green"}
-            >
-              <AddIcon /> Order
-            </Tab>
-            <SaleOrderFormModal
-              isOpen={isModalOpen}
-              onClose={handleCloseModal}
-              onSubmit={(data) => handleSubmit(data, !!modalData.order)}
-              defaultValues={modalData.order}
-              readOnly={modalData.readOnly}
-            />
+          <Tab onClick={() => handleOpenModal()}>
+            <AddIcon /> Order
           </Tab>
         </TabList>
         <TabPanels>
@@ -199,6 +180,13 @@ const Orders = () => {
           </TabPanel>
         </TabPanels>
       </Tabs>
+      <SaleOrderFormModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onSubmit={(data) => handleSubmit(data, !!modalData.order)}
+        defaultValues={modalData.order}
+        readOnly={modalData.readOnly}
+      />
     </Box>
   );
 };
